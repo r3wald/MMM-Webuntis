@@ -1,11 +1,16 @@
 # MMM-Webuntis
 
-This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror). It allows to display your kids' cancelled and irregular lessons for schools using [Untis](https://www.untis.at) software to organize school's timetables. You are able to configure access for each of your kids.
+This an extension for the [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror). It allows to display your kids' cancelled and irregular lessons for schools using [Untis](https://www.untis.at) software to organize school's timetables. You are able to configure access for each of your kids.
 
 ## Installation
 
-1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/thyed/MMM-Webuntis.git`.
+1. Navigate into your MagicMirror²'s `modules` folder and execute `git clone https://github.com/HeikoGr/MMM-Webuntis`.
 2. Navigate into the new folder `MMM-Webuntis` and execute `npm install` to generate the node dependencies.
+
+## Update
+
+1. Navigate into your MMM-Webuntis folder and execute `git pull`.
+2. execute `npm install` to (re-)generate the node dependencies.
 
 ## Using the module
 
@@ -21,16 +26,19 @@ modules: [
             students: [
                 {
                     title: "1st child's name",
-                    school: "your school",
-                    username: "your untis username",
-                    password: "your untis password",
-                    server: "untis server"
+                    qrcode: "untis:[...] " // preferred, or:
+                    // school: "your school",
+                    // username: "your untis username",
+                    // password: "your untis password",
+                    // server: "untis server"
                 },
                 {
                     title: "2nd child's name",
-                    school: "your school",
-                    server: "untis server",
-                    class: "2nd child's class name"
+                    qrcode: "untis:[...] " // preferred, or:
+                    // school: "your school",
+                    // username: "your untis username",
+                    // password: "your untis password",
+                    // server: "untis server"
                 },
             ],
             days: 1,
@@ -38,34 +46,11 @@ modules: [
             showStartTime: false,
             showRegularLessons: false,
             showTeacher: true,
+            mode: "verbose",
             shortSubject: false
         }
     }
 ```
-
-## Checking functionality
-
-1. navigate to modules/MMM-Webuntis
-2. execute `npm run check`
-
-This calls check.js with your current configuration file. If there are one or more configurations for MMM-Webuntis these
-will be printed. Each configuration will be tried by requesting the current timetable.
-
-### Common Problems
-
-#### Error: getaddrinfo ENOTFOUND ...
-
-The server name seems to be invalid. Use the server as shown in the URL after having logged in at webuntis.com,
-e.g. kephiso.webuntis.com.
-
-#### Error: Failed to login. {"jsonrpc":"2.0","id":"error","error":{"message":"invalid schoolname","code":-8500}}
-
-The schools name seems to be wrong. Use the school name as in the URL after having logged in at webuntis.com. A plus
-sign (+) in the URL can be replaced by space.
-
-#### Error: Failed to login. {"jsonrpc":"2.0","id":"Awesome","error":{"message":"bad credentials","code":-8504}}
-
-Username or password seem to be wrong. Please check your credentials.
 
 ## Configuration options
 
@@ -79,6 +64,12 @@ The following properties can be configured:
         </tr>
     <thead>
         <tr>
+            <td><code>header</code></td>
+            <td>
+                (optional) Printed by MagicMirror² if set <br>
+            </td>
+        </tr>
+        <tr>
             <td><code>students</code></td>
             <td>
                 Array of untis login credentials objects<br>
@@ -87,6 +78,12 @@ The following properties can be configured:
                     <tr>
                         <td><code>title</code></td>
                         <td>Title of the entry, e.g. kid's name</td>
+                    </tr>
+                    <tr>
+                        <td><code>qrcode</code></td>
+                        <td>login-string from qrcode provided by webuntis.
+                        You need to login in the student account and go to -&gt; Profile -&gt; Data Acess to generate a qrcode. Adjust the qrcode sting to match your credentials:<br>
+                        'untis://setschool?url=[...]&school=[...]&user=[...]&key=[...]&schoolNumber=[...]';</td>
                     </tr>
                     <tr>
                         <td><code>school</code></td>
@@ -163,7 +160,15 @@ The following properties can be configured:
             <td>
                 Whether to show just the subject initials or full subject name<br>
                 <br><b>Possible values:</b> <code>true</code> or <code>false</code>
-                <br><b>Default value:</b> <code>fasle</code>
+                <br><b>Default value:</b> <code>false</code>
+            </td>
+        </tr>
+        <tr>
+            <td><code>mode</code></td>
+            <td>
+                Show each student as own table, or compact in one table.
+                <br><b>Possible values:</b> <code>verbose</code> or <code>compact</code>
+                <br><b>Default value:</b> <code>verbose</code>               
             </td>
         </tr>
         <tr>
@@ -171,7 +176,7 @@ The following properties can be configured:
             <td>
                 Use only for debug purposes!<br>If set to true, the timetable from WebUntis and the parsed lessons will be printed to the MM log<br>
                 <br><b>Possible values:</b> <code>true</code> or <code>false</code>
-                <br><b>Default value:</b> <code>fasle</code>
+                <br><b>Default value:</b> <code>false</code>
             </td>
         </tr>
 </table>
@@ -186,7 +191,13 @@ This module may be useful for students at schools using Untis for the organizati
 
 ## Screenshots
 
-![Screenshot](screenshot.png "Screenshot")
+"mode: compact":
+
+![Screenshot](compact.png "Screenshot compact mode") 
+
+"mode: verbose":
+
+![Screenshot](screenshot.png "Screenshot verbose mode")
 
 ## Attribution
 
