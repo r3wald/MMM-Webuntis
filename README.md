@@ -113,7 +113,7 @@ The following properties can be configured:
                         <td>It seems, that some schools do not provide an individual timetable but only the
                         class timetable. Try to set this to <code>true</code> if you don't receive any elements.
                         <br><br><b>Default value:</b> <code>false</code></td>
-                    </tr>                    
+                    </tr>
                 </table>
             </td>
         </tr>
@@ -187,6 +187,10 @@ This module may be useful for students at schools using Untis for the organizati
 ## Screenshots
 
 ![Screenshot](screenshot.png "Screenshot")
+
+## Development
+
+Please format your code with `npm run prettier` before committing.
 
 ## Attribution
 
